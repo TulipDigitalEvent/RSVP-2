@@ -31,10 +31,18 @@ drawParticles();
 
 /* ============ COUNTDOWN ============ */
 const eventDate = new Date("2027-06-25T16:00:00-07:00").getTime();
+let countdownInterval;
 function updateCountdown(){
   const now = new Date().getTime();
   const diff = eventDate - now;
-  if(diff < 0) return;
+  if(diff < 0){
+    const titleEl = document.querySelector('#countdown .title');
+    if(titleEl) titleEl.textContent = '¡Hoy es el gran día!';
+    const grid = document.querySelector('.cd-grid');
+    if(grid) grid.style.display = 'none';
+    if(countdownInterval) clearInterval(countdownInterval);
+    return;
+  }
   const d = Math.floor(diff/(1000*60*60*24));
   const h = Math.floor((diff%(1000*60*60*24))/(1000*60*60));
   const m = Math.floor((diff%(1000*60*60))/(1000*60));
@@ -44,7 +52,7 @@ function updateCountdown(){
   document.getElementById('cd-min').textContent = String(m).padStart(2,'0');
   document.getElementById('cd-sec').textContent = String(s).padStart(2,'0');
 }
-setInterval(updateCountdown,1000);
+countdownInterval = setInterval(updateCountdown,1000);
 updateCountdown();
 
 /* Agregar a calendario (Google Calendar link) */
@@ -57,6 +65,7 @@ document.getElementById('calBtn').href =
 const track = document.getElementById('carouselTrack');
 const dotsWrap = document.getElementById('carouselDots');
 const totalSlides = track.children.length;
+[...track.children].forEach((img,i)=>{ if(i>0) img.loading='lazy'; });
 let current = 0;
 for(let i=0;i<totalSlides;i++){
   const dot = document.createElement('div');
@@ -78,6 +87,23 @@ let autoSlide = setInterval(()=>moveCarousel(1), 5000);
 /* ============ FAQ ============ */
 function toggleFaq(el){
   el.parentElement.classList.toggle('open');
+}
+document.querySelectorAll('.faq-q').forEach(el=>{
+  el.setAttribute('tabindex','0');
+  el.setAttribute('role','button');
+  el.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); el.click(); }
+  });
+});
+
+/* ============ ACCESIBILIDAD SOBRE DE REGALOS ============ */
+const envelopeEl = document.getElementById('envelope');
+if(envelopeEl){
+  envelopeEl.setAttribute('tabindex','0');
+  envelopeEl.setAttribute('role','button');
+  envelopeEl.addEventListener('keydown', e=>{
+    if(e.key==='Enter' || e.key===' '){ e.preventDefault(); envelopeEl.click(); }
+  });
 }
 
 /* ============ QUICK NAV ============ */
