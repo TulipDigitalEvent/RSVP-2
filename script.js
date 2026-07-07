@@ -99,7 +99,7 @@ document.getElementById('musicToggle').addEventListener('click', () => {
 
 /* ============ RSVP -> Google Sheets ============ */
 // TULIP: reemplaza esta URL con la de tu implementación de Apps Script (termina en /exec)
-const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbwXZEJPgxS4Y-nLdkmVmAYkuX45kJU450y7UODICG8Dxrhd8IEWlxgXKhZf_HQRCgD1zQ/exec";
+const RSVP_ENDPOINT = "https://script.google.com/macros/s/AKfycbx_1hT0Fw9liTyqK0pYgz0Wo3F-FlgC0RNtj0BkPWuPrCER-PZ4VxZm1r6pOYN1bhJ7hA/exec";
 
 function getGuestId(){
   let id = localStorage.getItem('rsvp_id_evelin');
